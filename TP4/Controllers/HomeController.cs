@@ -19,11 +19,17 @@ namespace TP4.Controllers
         public IActionResult Index()
         {
          
-               
-                UniversityContext universityContext = UniversityContext.Instantiate_UniversityContext();
-                StudentRepository studentRep = new StudentRepository(universityContext);
-                IEnumerable<String> s = studentRep.GetCourses();
-                return View(s);
+            
+            UniversityContext universityContext = UniversityContext.Instantiate_UniversityContext();
+            List <Student> students = universityContext.Student.ToList();
+            foreach (Student student in students)
+            {
+                Debug.WriteLine(" Student : {0} {1} {2} {3} {4} {5} {6}", student.id, student.first_name, student.last_name,student.phone_number, student.university, student.course, student.timestamp);
+            }
+            StudentRepository studentRep = new StudentRepository(universityContext);
+            IEnumerable<String> s = studentRep.GetCourses();
+
+            return View(s);
              
         }
 
